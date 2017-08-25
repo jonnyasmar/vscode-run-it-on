@@ -1,14 +1,14 @@
 ## Run saved file in Terminal
 
-Fork from [vscode-runonsave](https://github.com/emeraldwalk/vscode-runonsave)
+Fork from [vscode-save-and-run](https://github.com/wk-j/vscode-save-and-run)
 
-Simplify original extension by pass command into Terminal directly without spawn process, so we don't lose output colors. 
+Extends the original extension to execute VS Code extension commands or terminal-commands 
 
 ![](https://github.com/wk-j/vscode-save-and-run/raw/master/images/save-and-run.png)
 
 ## Features
 
-- Configure multiple commands that run when a file is saved
+- Configure multiple commands (terminal or command from VS Code extension) that run when a file is saved
 - Regex pattern matching for files that trigger commands running
 
 ## Note
@@ -35,11 +35,12 @@ Add "saveAndRun" configuration to user or workspace settings.
 	"commands": [
 		{
 			"match": ".*",
-			"cmd": "echo 'I run for all files.'"
+			"isShellCommand" : false,
+			"cmd": "myExtension.amazingCommand"
 		},
 		{
 			"match": "\\.txt$",
-			"cmd": "echo 'I am a .txt file ${file}.'"
+			"cmd": "echo 'Executed in the terminal: I am a .txt file ${file}.'"
 		}
 	]
 }
@@ -49,8 +50,8 @@ Add "saveAndRun" configuration to user or workspace settings.
 
 The following commands are exposed in the command palette
 
-- `Save and Run : Enable`
-- `Save and Run : Disable`
+- `Save and Run Ext : Enable`
+- `Save and Run Ext : Disable`
 
 ## Placeholder Tokens
 
