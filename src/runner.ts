@@ -10,6 +10,8 @@ interface ICommand {
 	notMatch?: string;
 	cmd: string;
 	isAsync: boolean;
+	isShellCommand: boolean;
+	
 }
 
 interface IConfig {
@@ -18,14 +20,14 @@ interface IConfig {
 	commands: Array<ICommand>;
 }
 
-export class RunOnSaveExtension {
+export class RunOnSaveExtExtension {
 	private outputChannel: vscode.OutputChannel;
 	private context: vscode.ExtensionContext;
 	private config: IConfig;
 
 	constructor(context: vscode.ExtensionContext) {
 		this.context = context;
-		this.outputChannel = vscode.window.createOutputChannel('Run On Save');
+		this.outputChannel = vscode.window.createOutputChannel('Run On Save Ext');
 		this.loadConfig();
 	}
 
@@ -41,9 +43,12 @@ export class RunOnSaveExtension {
 		});
     }
 
-	private runAllInTerminal(commands: ICommand[]): void {
+	private runAll(commands: ICommand[]): void {
 		commands.forEach(command => {
-			this.runInTerminal(command.cmd);
+			if(command.isShellCommand)
+				this.runInTerminal(command.cmd);
+			else
+				vscode.commands.executeCommand(command.cmd);
 		});
 	}
 
@@ -72,7 +77,7 @@ export class RunOnSaveExtension {
 	}
 
 	public showOutputMessage(message?: string): void {
-		message = message || `Run On Save ${this.isEnabled ? 'enabled' : 'disabled'}.`;
+		message = message || `Run On Save Ext ${this.isEnabled ? 'enabled' : 'disabled'}.`;
 		this.outputChannel.appendLine(message);
 	}
 
@@ -140,11 +145,12 @@ export class RunOnSaveExtension {
 
 			commands.push({
 				cmd: cmdStr,
-				isAsync: !!cfg.isAsync
+				isAsync: !!cfg.isAsync,
+				isShellCommand: !!(cfg.isShellCommand === false) ? false : true;
 			});
 		}
 
 		//this._runCommands(commands);
-		this.runAllInTerminal(commands);
+		this.runAll(commands);
 	}
 }
