@@ -73,7 +73,7 @@ export class RunOnSaveExtExtension {
 	}
 
 	public loadConfig(): void {
-		this.config = <IConfig><any>vscode.workspace.getConfiguration('saveAndRun');
+		this.config = <IConfig><any>vscode.workspace.getConfiguration('saveAndRunExt');
 	}
 
 	public showOutputMessage(message?: string): void {
@@ -146,7 +146,7 @@ export class RunOnSaveExtExtension {
 			commands.push({
 				cmd: cmdStr,
 				isAsync: !!cfg.isAsync,
-				isShellCommand: !!(cfg.isShellCommand === false) ? false : true;
+				isShellCommand: !!((cfg.isShellCommand === false) ? false : true)
 			});
 		}
 

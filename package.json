@@ -1,13 +1,13 @@
 {
-  "name": "save-and-run",
-  "displayName": "Save and Run",
-  "description": "Run commands when a file is saved in Terminal",
+  "name": "save-and-run-ext",
+  "displayName": "Save and Run Ext",
+  "description": "Run terminal- or VS Code extension commands when a file is saved",
   "icon": "images/icon.png",
-  "version": "0.0.14",
-  "publisher": "wk-j",
+  "version": "0.0.15",
+  "publisher": "padjon",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wk-j/vscode-save-and-run"
+    "url": "https://github.com/padjon/vscode-save-and-run-ext"
   },
   "engines": {
     "vscode": "^1.5.0"
@@ -22,19 +22,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.saveAndRun.enable",
-        "title": "Save and Run : Enable"
+        "command": "extension.saveAndRunExt.enable",
+        "title": "Save and Run Ext : Enable"
       },
       {
-        "command": "extension.saveAndRun.disable",
-        "title": "Save and Run : Disable"
+        "command": "extension.saveAndRunExt.disable",
+        "title": "Save and Run Ext : Disable"
       }
     ],
     "configuration": {
       "title": "Save & Run command configuration.",
       "type": "object",
       "properties": {
-        "saveAndRun": {
+        "saveAndRunExt": {
           "type": "object",
           "properties": {
             "commands": {
@@ -61,6 +61,11 @@
                     "type": "boolean",
                     "description": "Run command asynchronously.",
                     "default": false
+                  },
+                  "isShellCommand": {
+                    "type": "boolean",
+                    "description": "Run command in terminal.",
+                    "default": true
                   }
                 }
               }
