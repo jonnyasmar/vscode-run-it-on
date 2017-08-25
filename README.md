@@ -1,4 +1,4 @@
-## Run saved file in Terminal
+## Run saved file in Terminal or a VS Code Extension command
 
 Fork from [vscode-save-and-run](https://github.com/wk-j/vscode-save-and-run)
 
