@@ -1,37 +1,45 @@
-## Run saved file in Terminal or a VS Code Extension command
+## Run It On!
+> Run terminal or VS Code commands on save or watched files changed
 
-Fork from [vscode-save-and-run](https://github.com/wk-j/vscode-save-and-run)
+Fork from [vscode-save-and-run-ext](https://github.com/padjon/vscode-save-and-run-ext)
 
-Extends the original extension to execute VS Code extension commands or terminal-commands 
+`UPDATE` The original version seems not updated and no longer works as it should. This fork is the updated one and also adds new feature named *watchers*, that will allow it to just watch file (s) change then once the matched files changed, it will run the command.
 
 ![](https://github.com/wk-j/vscode-save-and-run/raw/master/images/save-and-run.png)
 
 ## Features
 
-- Configure multiple commands (terminal or command from VS Code extension) that run when a file is saved
-- Regex pattern matching for files that trigger commands running
+- Configure multiple commands (terminal or command from VSCode/extension) that run when a file is saved.
+- Regex pattern matching for files that trigger commands running.
+- `NEW` watch files' changes then run a command.
 
 ## Note
 
-- Commands only get run when saving an existing file. Creating new files, and Save as... don't trigger the commands.
-- For Ubuntu user, you have to install xclip
-
-  ```
-  sudo apt-get install xclip
-  ```
+- Commands only get run when saving an existing file. Creating new files, and `Save as...` don't trigger the commands.
+- Property `match` on watchers config uses [globPattern](https://code.visualstudio.com/api/references/vscode-api#GlobPattern) NOT regex.
 
 ## Configuration
 
-Add "saveAndRunExt" configuration to user or workspace settings.
+Add `runItOn` configuration to user or workspace settings.
 
-- "commands" - array of commands that will be run whenever a file is saved.
-  - "match" - a regex for matching which files to run commands on
-  - "cmd" - command to run. Can include parameters that will be replaced at runtime (see Placeholder Tokens section below).
+- **`commands`** - array of commands that will be run whenever a file is saved.
+  - `match` - a regex for matching which files to run commands on. Default `.*`.
+  - `cmd` - command to execute on save. Can include parameters that will be replaced at runtime (see [Placeholder Tokens](#placeholder-tokens) section below). Default `echo ${file}`.
+  - `isAsync` - run command asynchronously. Default `false`.
+  - `isShellCommand` - run command in terminal. Default `true`.
+  - `useShortcut` - only execute when press shortcut keys `Ctrl/Command + Shift + R`. Default `false`.
+  - `silent` - suppress terminal when command is executing.
+- **`watchers`** - array of commands that will be run whenever matching files changed.
+  - `match` - a [globPattern](https://code.visualstudio.com/api/references/vscode-api#GlobPattern) for matching which files to run commands on. Default `**/*.*`.
+  - `cmd` - command to execute when matching files have changed. Can include parameters that will be replaced at runtime (see [Placeholder Tokens](#placeholder-tokens) section below). Default `echo ${file}`.
+  - `isAsync` - run command asynchronously. Default `false`.
+  - `isShellCommand` - run command in terminal. Default `true`.
+  - `silent` - command to execute when matching files have changed.
 
-## Sample Config
+### Sample Config
 
 ```json
-"saveAndRunExt": {
+"runItOn": {
 	"commands": [
 		{
 			"match": ".*",
@@ -42,6 +50,12 @@ Add "saveAndRunExt" configuration to user or workspace settings.
 			"match": "\\.txt$",
 			"cmd": "echo 'Executed in the terminal: I am a .txt file ${file}.'"
 		}
+	],
+	"watchers": [
+		{
+			"match": "**/*.js",
+			"cmd": "echo 'Changes detected on js files.'"
+		}
 	]
 }
 ```
@@ -50,14 +64,16 @@ Add "saveAndRunExt" configuration to user or workspace settings.
 
 The following commands are exposed in the command palette
 
-- `Save and Run Ext : Enable`
-- `Save and Run Ext : Disable`
+- `Run It On! : Enable` to enable Run It On!
+- `Run It On! : Disable` to disable Run It On!
+- `Run It On! : Execute` to force executing `save` then `run` on matching files. This has no effect to watchers.
 
 ## Placeholder Tokens
 
 Commands support placeholders similar to tasks.json.
 
 - `${workspaceRoot}`: workspace root folder
+- `${workspaceFolder}`: the path of the folder opened in VS Code
 - `${file}`: path of saved file
 - `${relativeFile}`: relative path of saved file
 - `${fileBasename}`: saved file's basename
@@ -70,6 +86,10 @@ Commands support placeholders similar to tasks.json.
 
 - `${env.Name}`
 
+## Todo
+
+- [ ] Update the preview image
+
 ## License
 
-[Apache](https://github.com/wk-j/vscode-save-and-run/blob/master/LICENSE)
+[Apache](https://github.com/padjon/vscode-save-and-run-ext/blob/master/LICENSE)

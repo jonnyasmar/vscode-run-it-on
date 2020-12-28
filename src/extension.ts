@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext): void {
 	let watchers = extension.watch(document);
 
 	vscode.workspace.onDidChangeConfiguration(() => {
-		let disposeStatus = extension.showStatusMessage('Run On Save Ext: Reloading config.');
+		let disposeStatus = extension.showStatusMessage('Run It On!: Reloading config.');
 		extension.loadConfig();
 		disposeStatus.dispose();
 		watchers.forEach(e => {
@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext): void {
 		watchers = extension.watch(document);
 	});
 
-	vscode.commands.registerCommand('extension.saveAndRunExt.enable', () => {
+	vscode.commands.registerCommand('extension.runItOn.enable', () => {
 		extension.isEnabled = true;
 		watchers.forEach(e => {
 			e.dispose();
@@ -35,14 +35,14 @@ export function activate(context: vscode.ExtensionContext): void {
 		watchers = extension.watch(document);
 	});
 
-	vscode.commands.registerCommand('extension.saveAndRunExt.disable', () => {
+	vscode.commands.registerCommand('extension.runItOn.disable', () => {
 		extension.isEnabled = false;
 		watchers.forEach(e => {
 			e.dispose();
 		});
 	});
 
-	vscode.commands.registerCommand("extension.saveAndRunExt.execute", () => {
+	vscode.commands.registerCommand("extension.runItOn.execute", () => {
 		document.save();
 		extension.runCommands(document, true);
 	});

@@ -1,13 +1,13 @@
 {
-  "name": "save-and-run-ext",
-  "displayName": "Save and Run Ext",
-  "description": "Run terminal- or VS Code extension commands when a file is saved",
+  "name": "run-it-on",
+  "displayName": "Run It On",
+  "description": "Run terminal or VSCode commands on save or watched files changed",
   "icon": "images/icon.png",
-  "version": "0.0.15",
-  "publisher": "padjon",
+  "version": "1.0.0",
+  "publisher": "fsevenm",
   "repository": {
     "type": "git",
-    "url": "https://github.com/padjon/vscode-save-and-run-ext"
+    "url": "https://github.com/fsevenm/vscode-run-it-on"
   },
   "engines": {
     "vscode": "^1.5.0"
@@ -20,25 +20,32 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "keybindings": [
+      {
+        "command": "extension.runItOn.execute",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      }
+    ],
     "commands": [
       {
-        "command": "extension.saveAndRunExt.enable",
-        "title": "Save and Run Ext : Enable"
+        "command": "extension.runItOn.enable",
+        "title": "Run It On! : Enable"
       },
       {
-        "command": "extension.saveAndRunExt.disable",
-        "title": "Save and Run Ext : Disable"
+        "command": "extension.runItOn.disable",
+        "title": "Run It On! : Disable"
       },
       {
-        "command": "extension.saveAndRunExt.execute",
-        "title": "Save and Run Ext : Execute"
+        "command": "extension.runItOn.execute",
+        "title": "Run It On! : Execute"
       }
     ],
     "configuration": {
-      "title": "Save & Run command configuration.",
+      "title": "Run It On! configurations",
       "type": "object",
       "properties": {
-        "saveAndRunExt": {
+        "runItOn": {
           "type": "object",
           "properties": {
             "commands": {
@@ -49,11 +56,6 @@
                   "match": {
                     "type": "string",
                     "description": "Regex for matching files to run commands on.",
-                    "default": ".*"
-                  },
-                  "notMatch": {
-                    "type": "string",
-                    "description": "Regex for matching files *not* to run commands on.",
                     "default": ".*"
                   },
                   "cmd": {
@@ -73,12 +75,44 @@
                   },
                   "useShortcut": {
                     "type": "boolean",
-                    "description": "Only execute when press shortcut keys",
+                    "description": "Only execute when press shortcut keys.",
                     "default": false
                   },
                   "silent": {
                     "type": "boolean",
-                    "description": "Suppress terminal when command is executing"
+                    "description": "Suppress terminal when command is executing."
+                  }
+                }
+              }
+            },
+            "watchers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "match": {
+                    "type": "string",
+                    "description": "Glob Pattern matching files to run watchers on.",
+                    "default": "**/*.*"
+                  },
+                  "cmd": {
+                    "type": "string",
+                    "description": "Command to execute when matching files have changed.",
+                    "default": "echo ${file}"
+                  },
+                  "isAsync": {
+                    "type": "boolean",
+                    "description": "Run command asynchronously.",
+                    "default": false
+                  },
+                  "isShellCommand": {
+                    "type": "boolean",
+                    "description": "Run command in terminal.",
+                    "default": true
+                  },
+                  "silent": {
+                    "type": "boolean",
+                    "description": "Suppress terminal when command is executing."
                   }
                 }
               }

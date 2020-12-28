@@ -35,7 +35,7 @@ export class RunOnSaveExtExtension {
 
 	constructor(context: vscode.ExtensionContext) {
 		this.context = context;
-		this.outputChannel = vscode.window.createOutputChannel('Run On Save Ext');
+		this.outputChannel = vscode.window.createOutputChannel('Run It On!');
 		this.loadConfig();
 	}
 
@@ -81,12 +81,12 @@ export class RunOnSaveExtExtension {
 		const uri = vscode.window.activeTextEditor.document.uri;
 		// @ts-ignore
 		let config = vscode.workspace.getConfiguration("", uri);
-		let saveAndRunExt = config.get<IConfig>("saveAndRunExt");
+		let saveAndRunExt = config.get<IConfig>("runItOn");
 		this.config = saveAndRunExt;
 	}
 
 	public showOutputMessage(message?: string): void {
-		message = message || `Run On Save Ext ${this.isEnabled ? 'enabled' : 'disabled'}.`;
+		message = message || `Run It On! ${this.isEnabled ? 'enabled' : 'disabled'}.`;
 		this.outputChannel.appendLine(message);
 	}
 
