@@ -1,4 +1,6 @@
 ## Run It On!
+[![vsm-version](https://img.shields.io/visual-studio-marketplace/v/fsevenm.run-it-on?style=flat-square&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=fsevenm.run-it-on) [![vsm-installs](https://img.shields.io/visual-studio-marketplace/i/fsevenm.run-it-on?style=flat-square&label=installs&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=fsevenm.run-it-on) [![Apache License](https://img.shields.io/badge/license-Apache%202.0-orange.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0)
+
 > Run terminal or VS Code commands on save or watched files changed
 
 Fork from [vscode-save-and-run-ext](https://github.com/padjon/vscode-save-and-run-ext)
