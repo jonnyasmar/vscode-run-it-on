@@ -1,13 +1,13 @@
 {
-  "name": "run-it-on",
-  "displayName": "Run It On",
+  "name": "run-it-on-v2",
+  "displayName": "Run It On v2",
   "description": "Run terminal or VSCode commands on save or watched files changed",
   "icon": "images/icon.png",
   "version": "1.0.0",
-  "publisher": "fsevenm",
+  "publisher": "jonnyasmar",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fsevenm/vscode-run-it-on"
+    "url": "https://github.com/jonnyasmar/vscode-run-it-on"
   },
   "engines": {
     "vscode": "^1.5.0"
