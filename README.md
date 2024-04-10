@@ -17,6 +17,7 @@ Fork from [vscode-save-and-run-ext](https://github.com/padjon/vscode-save-and-ru
 
 ## Note
 
+- After installation the extension has to be reloaded once ("Reload Window"), in order to work. 
 - Commands only get run when saving an existing file. Creating new files, and `Save as...` don't trigger the commands.
 - Property `match` on watchers config uses [globPattern](https://code.visualstudio.com/api/references/vscode-api#GlobPattern) NOT regex.
 
